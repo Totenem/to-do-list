@@ -24,3 +24,31 @@
     border-radius: 10px;
     color: white;
 }
+
+/* task functions */
+
+#task-list{
+    font-size: x-large;
+    align-items: flex-start;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.task-item.completed {
+    text-decoration: line-through;
+    background-color: #d3d3d3;
+}
+.check-button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: green;
+    font-size: 35px; /* Font size for check button */
+}
