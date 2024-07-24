@@ -1,0 +1,114 @@
+body.main {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #0E0A2E;
+    color: #FFFF;
+}
+
+#header {
+    color: #FFFF;
+}
+
+.cont1 {
+    display: flex;
+    align-items: center;
+    color: #FFFF;
+}
+.cont1 img {
+    margin-right: 20px;
+}
+.cont1 .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.progress-container {
+    margin-bottom: 20px;
+    color: #FFFF;
+}
+.progress-container span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.progress {
+    background-color: #d3d3d3;
+    border-radius: 25px;
+    overflow: hidden;
+    height: 20px;
+    width: 70%;
+}
+.progress-bar {
+    height: 100%;
+    border-radius: 25px;
+}
+.progress-bar.physical {
+    width: 70%; 
+    background-color: #ff4d4d; 
+}
+.progress-bar.intelect {
+    width: 50%; 
+    background-color: #00e5ff; 
+}
+.progress-bar.happiness {
+    width: 80%; 
+    background-color: #ff4dff; 
+}
+
+.action-container {
+    margin-top: 20px;
+}
+.action-button {
+    background-color: #d3d3d3; /* Light gray background */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+}
+.action-button:hover {
+    background-color: #c0c0c0; /* Slightly darker gray on hover */
+}
+
+.tasks-section {
+    background-color: #D9D9D9;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.task-list {
+    margin-top: 20px;
+    color: black;
+}
+.task {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.task span {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    font-size: 18px; /* Increased font size */
+}
+.task-button {
+    background-color: #d3d3d3; /* Light gray background */
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+}
+.task-button.done {
+    background-color: #32CD32; /* Lime green */
+}
+.task-button.cancel {
+    background-color: #FF4500; /* Orange red */
+}
+.task-button:hover {
+    opacity: 0.8; /* Slightly dim on hover */
+}
