@@ -1,0 +1,47 @@
+body.main {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #0E0A2E;
+    color: #FFFFFF;
+}
+
+h1, h3 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.form-label {
+    color: #FFFFFF;
+}
+
+.form-control {
+    background-color: #555;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.form-control::placeholder {
+    color: #DDD;
+}
+
+.btn-light {
+    background-color: #777;
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-light:hover {
+    background-color: #999;
+    color: #FFF;
+}
