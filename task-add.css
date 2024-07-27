@@ -1,0 +1,93 @@
+body.main {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #0E0A2E;
+    color: #FFFF;
+}
+
+#header, #m-header {
+    color: #FFFF;
+}
+
+.cont1 {
+    display: flex;
+    align-items: center;
+    color: #FFFF;
+}
+.cont1 img {
+    margin-right: 20px;
+    border: 2px solid #FFFF;
+}
+.cont1 .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.progress-container {
+    margin-bottom: 20px;
+    color: #FFFF;
+}
+.progress-container span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.progress {
+    background-color: #d3d3d3;
+    border-radius: 25px;
+    overflow: hidden;
+    height: 20px;
+    width: 70%;
+}
+.progress-bar {
+    height: 100%;
+    border-radius: 25px;
+}
+.progress-bar.physical {
+    width: 70%; 
+    background-color: #ff4d4d; 
+}
+.progress-bar.intelect {
+    width: 50%; 
+    background-color: #00e5ff; 
+}
+.progress-bar.happiness {
+    width: 80%; 
+    background-color: #ff4dff; 
+}
+
+.task-form {
+    background-color: #D3D3D3;
+    padding: 20px;
+    border-radius: 10px;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-form h3{
+    text-align: center;
+}
+
+.form-control {
+    background-color: #555;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.form-control::placeholder {
+    color: #DDD;
+}
+
+.btn-success, .btn-danger {
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.form-check-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+}

@@ -15,6 +15,7 @@ body.main {
 }
 .cont1 img {
     margin-right: 20px;
+    border: 2px solid #FFFF;
 }
 .cont1 .info {
     display: flex;
