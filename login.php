@@ -1,7 +1,42 @@
 <?php
 session_start();
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Debugging settings
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Database connection
+    require_once 'dbconnection.php'; 
+    
+    // Searching the database
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    if ($stmt->error) {
+        die('Error: ' . $stmt->error);
+    }
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+
+        // Verifying login
+        if ($password == $user["password"]) { 
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user_id'] = $user['user_id'];
+            header("Location: index.php");
+            exit();
+        } else {
+            $error = "Incorrect password. Please try again.";
+        }
+    } else {
+        $error = "Username not found. Please try again.";
+    }
 }
 
 ?>
@@ -22,17 +57,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
         <h1 style="font-size: 80px;">TODO RPG</h1>
         <h3 class="mt-5">Log In</h3>
-        <form id="loginForm" class="text-center mt-3">
+        <form id="loginForm" class="text-center mt-3" method="POST" action="">
             <div class="mb-3">
-                <label for="Username" class="form-label">Username</label>
-                <input type="text" id="Username" class="form-control" placeholder="Enter Username" required>
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
             </div>
             <div class="mb-3">
-                <label for="Password" class="form-label">Password</label>
-                <input type="password" id="Password" class="form-control" placeholder="Enter Password" required>
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
             </div>
             <button type="submit" class="btn btn-light mt-3">Log In</button>
-            <div id="errorMessage" class="mt-3 text-danger"></div>
+            <div id="errorMessage" class="mt-3 text-danger">
+                <?php if (isset($error)) echo $error; ?>
+            </div>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
