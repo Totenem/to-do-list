@@ -1,3 +1,20 @@
+<?php
+session_start();
+require_once 'dbconnection.php';
+
+// Checking if logged in
+if(!isset($_SESSION['user_logged_in'])){
+    //redirect to log in page
+    header("Location: login.php");
+    exit;
+}
+
+$username = $_SESSION['username'];
+
+// echo "$username";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +35,7 @@
                 <div class="cont1">
                     <img src="img/pfp.png" width="260px" height="240px" alt="Profile Picture">
                     <div class="info">
-                        <span class="mb-4">Username: Totem</span>
+                        <span class="mb-4">Username: <?php echo htmlspecialchars($username); ?></span>
                         <span class="mb-4">Level: 17</span>
                         <span class="mb-4">Class: Warrior</span>
                     </div>
@@ -46,8 +63,8 @@
                 </div>
                 <h3 id="header" class="mt-5 mb-4">Action</h3>
                 <div class="action-container">
-                    <button class="action-button">Add Task</button>
-                    <button class="action-button">Log Out</button>
+                    <a href="add-task.php" class="btn btn-success action-button">Add Task</a>
+                    <a href="logout.php" class="btn btn-danger action-button">Log Out</a>
                 </div>
             </div>
             <div class="col-lg-6">

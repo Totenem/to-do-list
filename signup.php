@@ -1,45 +1,33 @@
 <?php
 session_start();
+require_once 'dbconnection.php';
+$errors = [];
 
-// Debugging settings
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['signup'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $class = $_POST['class'];
 
-    // Database connection
-    require_once 'dbconnection.php'; 
-    
-    // Searching the database
-    $sql = "SELECT * FROM users WHERE username = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    if ($stmt->error) {
-        die('Error: ' . $stmt->error);
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        $errors[] = "Username should only contain letters, numbers, and underscores.";
     }
-    $result = $stmt->get_result();
 
-    if ($result->num_rows == 1) {
-        $user = $result->fetch_assoc();
+    if (strlen($password) < 8) {
+        $errors[] = "Password must be at least 8 characters long.";
+    }
 
-        // Verifying login and store data on session
-        if ($password == $user["password"]) { 
-            $_SESSION['user_logged_in'] = true;
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['username'] = $username;
-            header("Location: index.php");
+    if (empty($errors)) {
+        $sql = "INSERT INTO users (username, password, class) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $username, $password, $class);
+        if ($stmt->execute()) {
+            header("Location: login.php");
             exit();
         } else {
-            $error = "Incorrect password. Please try again.";
+            $errors[] = "Error: " . $stmt->error;
         }
-    } else {
-        $error = "Username not found. Please try again.";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | TODO RPG</title>
+    <title>Sign Up | TODO RPG</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -57,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="main">
     <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
         <h1 style="font-size: 80px;">TODO RPG</h1>
-        <h3 class="mt-5">Log In</h3>
-        <form id="loginForm" class="text-center mt-3" method="POST" action="">
+        <h3 class="mt-5">Sign Up</h3>
+        <form id="signupForm" class="text-center mt-3" method="POST" action="">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
@@ -67,10 +55,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="password" class="form-label">Password</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
             </div>
-            <button type="submit" class="btn btn-light mt-3 mb-3">Log In</button>
-            <p style="font-size: 10px;">Don't have an account? <a href="signup.php" style="text-decoration:none">Sign Up here</a></p>
+            <div class="mb-3">
+                <label for="class" class="form-label">Class</label>
+                <select id="class" name="class" class="form-control" required>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Wizard">Wizard</option>
+                    <option value="Sharpshooter">Sharpshooter</option>
+                </select>
+            </div>
+            <button type="submit" name="signup" class="btn btn-light mt-3 mb-3">Sign Up</button>
+            <p style="font-size: 10px;">Already have an account? <a href="login.php" style="text-decoration:none">Login here</a></p>
             <div id="errorMessage" class="mt-3 text-danger">
-                <?php if (isset($error)) echo $error; ?>
+                <?php if (!empty($errors)) foreach ($errors as $error) echo "<p>$error</p>"; ?>
             </div>
         </form>
     </div>

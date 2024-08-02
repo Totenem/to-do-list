@@ -42,7 +42,7 @@
                     <span><i class="fa-solid fa-heart me-2"></i> Happiness</span>
                     <div class="progress">
                         <div class="progress-bar happiness"></div>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class="col-lg-6">
